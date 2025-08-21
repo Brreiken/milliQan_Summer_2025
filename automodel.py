@@ -110,7 +110,7 @@ def init():
 def animate(frame): 
     global lastUpdate, active_particles, fading_particles, dead_particles
 
-    dt = 5.3e-12 #step approximately equates to 1cm per frame
+    dt = 5.3e-12 * 5 #This dt makes the distance traveled each frame approximately 0.5 cm
 
     for p in active_particles[:]:
         p.update_active(dt,dims) 
@@ -235,5 +235,6 @@ for y in ys:
 
         end_time = time.time()
         print(f"Run {run} (x={x}, y={y}) completed in {end_time-start_time:.2f} s")
+
 
         run += 1
