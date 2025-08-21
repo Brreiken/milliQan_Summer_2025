@@ -120,7 +120,7 @@ def animate(frame): #frame here serves to effectively iterate this function. it 
     #lastUpdate=time.time()
 
     
-    dt = 5.3e-12 #This works out so that each frame is approximately a 1 cm step
+    dt = 5.3e-12 * 5 #This works out so that each frame is approximately a 0.5 cm step
 
     for p in active_particles[:]:
         p.update_active(dt,dims) #run the update each substep
@@ -218,3 +218,4 @@ animation.save("particle_sim3.gif", writer='pillow', fps=10)
 #plt.show()
 end_time = time.time()
 print(f"{end_time-start_time:.2f}")
+
