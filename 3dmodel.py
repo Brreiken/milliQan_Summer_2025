@@ -161,15 +161,14 @@ def init():
 def animate(frame):
     global lastUpdate, active_particles, fading_particles, dead_particles
 
-    substeps = 5
-    dt = 5.3e-12
+    dt = 5.3e-12 * 5 #this dt makes each frame approximately a 0.5 cm step
 
-    for _ in range(substeps):
-        for p in active_particles[:]:
-            p.update_active(dt, dims)
-            if p.absorbed:
-                active_particles.remove(p)
-                fading_particles.append(p)
+    
+    for p in active_particles[:]:
+        p.update_active(dt, dims)
+        if p.absorbed:
+            active_particles.remove(p)
+            fading_particles.append(p)
 
     for p in fading_particles[:]:
         p.update_fading()
@@ -177,7 +176,7 @@ def animate(frame):
             fading_particles.remove(p)
             dead_particles.append(p)
 
-    sim_time = frame * substeps * dt  # seconds
+    sim_time = frame * dt  # seconds
     timer_text.set_text(f"Time: {sim_time*1e9:.2f} ns") #not sure if this is actually accurate
     alive_text.set_text(f"Alive: {len(active_particles)}")
     pmt1_text.set_text(f"CH1: {pmt_hits[0]}")
@@ -307,4 +306,5 @@ lastUpdate = time.time()
 animation = FuncAnimation(fig, animate, interval=10, frames=500, blit=True, init_func=init)
 animation.save("particle_sim3d2.gif", writer='pillow', fps=10)
 end_time = time.time()
+
 print(f"{end_time - start_time:.2f}")
